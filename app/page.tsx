@@ -12,13 +12,13 @@ export default function Home() {
 
         <div className="mt-10 flex justify-center gap-4 md:gap-6 flex-wrap">
           <a
-            href="/perfil"
+            href="/perfil?tipo=restaurante" // <-- MUDANÇA AQUI
             className="inline-block bg-green-600 text-white font-bold text-lg py-3 px-8 rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 transform hover:-translate-y-1"
           >
             Sou um Restaurante
           </a>
           <a
-            href="/perfil"
+            href="/perfil?tipo=associacao" // <-- MUDANÇA AQUI
             className="inline-block bg-gray-200 text-gray-800 font-bold text-lg py-3 px-8 rounded-lg shadow-md hover:bg-gray-300 transition-all duration-300 transform hover:-translate-y-1"
           >
             Sou uma Associação
