@@ -1,26 +1,35 @@
-import { mockUsuarios, mockLotes } from "@/lib/data";
+// app/perfil/page.tsx
+import { mockUsuarios } from "@/lib/data";
 import PerfilRestaurante from "@/components/PerfilRestaurante";
 import PerfilAssociacao from "@/components/PerfilAssociacao";
 
-// A página agora recebe uma propriedade especial 'searchParams' do Next.js
-export default function PerfilPage({ searchParams }: { searchParams: { tipo?: string } }) {
-  
-  // 1. Lemos o parâmetro 'tipo' da URL.
-  // Ele pode ser 'restaurante', 'associacao', ou indefinido se o usuário acessar /perfil diretamente.
-  const tipoDeUsuario = searchParams.tipo;
+// No App Router, searchParams é async — precisamos aguardar
+type PageProps = {
+  searchParams: Promise<{ tipo?: "restaurante" | "associacao" | string }>;
+};
 
-  // 2. Procuramos o usuário correspondente ao tipo recebido.
-  // Se o tipo não for informado na URL, vamos usar o restaurante como padrão.
-  const usuarioLogado = mockUsuarios.find(usuario => usuario.tipo === tipoDeUsuario) || mockUsuarios[0];
+export default async function PerfilPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const tipoParam = params?.tipo?.toLowerCase();
 
-  // 3. A lógica de renderização condicional continua a mesma, mas agora é dinâmica!
+  // default para "restaurante" se o param vier vazio/errado
+  const tipoDeUsuario: "restaurante" | "associacao" =
+    tipoParam === "associacao" || tipoParam === "restaurante"
+      ? (tipoParam as "restaurante" | "associacao")
+      : "restaurante";
+
+  const usuarioLogado =
+    mockUsuarios.find((u) => u.tipo === tipoDeUsuario) || mockUsuarios[0];
+
   return (
-    <div className="container mx-auto flex flex-col items-center py-10 px-4">
-      {usuarioLogado.tipo === 'restaurante' ? (
-        <PerfilRestaurante usuario={usuarioLogado} />
-      ) : (
-        <PerfilAssociacao usuario={usuarioLogado} lotes={mockLotes} />
-      )}
-    </div>
+    <main className="min-h-screen bg-gradient-to-b from-neutral-900 to-neutral-950">
+      <section className="container mx-auto flex flex-col items-center py-10 px-4">
+        {usuarioLogado.tipo === "restaurante" ? (
+          <PerfilRestaurante usuario={usuarioLogado} />
+        ) : (
+          <PerfilAssociacao usuario={usuarioLogado} />
+        )}
+      </section>
+    </main>
   );
 }

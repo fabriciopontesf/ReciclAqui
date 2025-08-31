@@ -19,16 +19,16 @@ export type Lote = {
 export const mockUsuarios: Usuario[] = [
   {
     id: 1,
-    nome: 'Restaurante Cantina da Nona',
+    nome: 'Restaurante Toca do Cabloco',
     tipo: 'restaurante',
     endereco: 'Rua das Pizzas, 123 - Centro',
-    contato: 'contato@cantinadanona.com.br',
+    contato: 'contato@restaurante.com.br',
   },
   {
     id: 2,
     nome: 'Associação Recicla Futuro',
     tipo: 'associacao',
-    endereco: 'Avenida da Coleta, 456 - Bairro Industrial',
+    endereco: 'Avenida da Coleta, 456 - Bairro Boa Vista',
     contato: 'contato@reciclafuturo.org.br',
   },
 ];
